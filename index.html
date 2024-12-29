@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>MYRO KZ</title>
+	<link type="text/css" href="assets/css/style.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-T384rR39DqvoDl7fOltc4ApjLf8RhTEoeoU05fpu3F601oFzQ7lCeU/JJdUA46ttw" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C89scLLqNg519UA0B2WVT7s3Ubznt6qL8wUQ7i9jNJ2T630E04762D00/GaSDq3S"   
+ 	crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<div id="alert">
+
+		<div class="text-white bg-dark border-0 rounded-0 d-none d-lg-block p-3" role="alert">
+			Create your own search engine and price comparison website. The source code of <strong>GetDeals</strong> is now open-source and can be downloaded for FREE from our <a href="https://github.com/getdeals/website" target="_blank" class="text-white"><u>GitHub Repository</u></a>.
+		</div>
+
+	</div>
+
+	<main id="gd-app">
+
+		<header id="gd-brand" class="">
+
+			<a href="." title="GetDeals">
+				<img src="assets/img/logo.png" alt="GetDeals" />
+			</a>
+
+		</header>
+
+		<section id="gd-search" class="">
+
+			<form id="gd-search-form" class="container">
+				<div class="input-group input-group-lg" role="search">
+					<input type="search" name="q" class="form-control pr-0" placeholder="What are you looking for?" form="gd-search-form" required="required" />
+					<input type="hidden" name="category" value="all" form="gd-search-field-category" />
+					<input type="hidden" name="sort" value="relevance" form="gd-search-field-sort" />
+					<input type="hidden" name="page" value="1" form="gd-search-field-page" />
+					<div class="input-group-append"><button type="submit" class="btn btn-search"><i class="fas fa-search"></i></button></div>
+				</div>
+			</form>
+
+			<div id="gd-search-results" class="d-flex flex-wrap justify-content-center"></div>
+
+			<div id="gd-search-footer" class="container"></div>
+
+		</section>
+
+		<section id="gd-about" style="display: none;">
+
+			<div id="gd-about-header" class="container">
+				<p class="lead mb-3">India's #1 open-source search engine and price comparison website for e-commerce</p>
+				<p><a href="." class="btn btn-primary btn-lg">Search Now</a>&nbsp;<a href="https://github.com/getdeals/website" target="_blank" class="btn btn-secondary btn-lg">Download Code</a></p>
+			</div>
+
+		</section>
+
+		<script type="text/html" id="gd-api-status-load">
+			<div class="preloader-wrapper active">
+			 <div class="spinner-layer spinner-red-only">
+				 <div class="circle-clipper left">
+					 <div class="circle"></div>
+				 </div><div class="gap-patch">
+					 <div class="circle"></div>
+				 </div><div class="circle-clipper right">
+					 <div class="circle"></div>
+				 </div>
+			 </div>
+		 </div>
+		</script>
+
+		<script type="text/html" id="gd-api-status-more">
+			<button id="gd-load-more-btn" class="btn btn-primary btn-lg btn-block">Load More Results</button>
+		</script>
+
+		<script type="text/html" id="gd-api-status-last">
+			<button class="btn btn-secondary btn-lg btn-block" disabled>No More Results</button>
+		</script>
+
+		<script type="text/html" id="gd-api-status-none">
+			<div class="card text-center text-muted">
+				<div class="card-body">
+					<p class="h5">No Results Found</p>
+					<p class="font-weight-thin mb-0">We couldn't find any results for your search query. Please try a different search query.</p>
+				</div>
+			</div>
+		</script>
+
+		<script type="text/html" id="gd-api-status-error">
+			<div class="card text-center text-white bg-danger">
+				<div class="card-body">
+					<p class="h5">Unknown Error</p>
+					<p class="font-weight-thin">Something went wrong while getting the results. Please try again.</p>
+					<button id="gd-try-again-btn" class="btn btn-danger active">Try Again</button>
+				</div>
+			</div>
+		</script>
+
+		<script type="text/html" id="gd-template-result">
+			{{#data}}
+			<div class="result">
+				<div class="content">
+					<div class="image">
+						<img src="{{image}}" alt="{{title}}" />
+					</div>
+					<div class="basic">
+						<div class="title">{{title}}</div>
+						<div class="store text-muted">{{store}}</div>
+					</div>
+					{{#price}}
+					<div class="prices">
+						{{#sale}}
+						<div class="new-price d-inline-block align-middle">
+							<span class="value text-primary">&#8377;{{sale}}</span>
+						</div>
+						{{/sale}}
+						{{#mrp}}
+						<div class="old-price d-inline-block align-middle ml-1">
+							<span class="value font-weight-light text-muted align-middle"><s>&#8377;{{mrp}}</s></span>
+							<span class="badge badge-success align-middle ml-1">{{discount}}%</span>
+						</div>
+						{{/mrp}}
+					</div>
+					{{/price}}
+					<div class="action">
+						<a href="{{link}}" target="_blank" class="btn btn-primary btn-block">BUY NOW</a>
+					</div>
+				</div>
+			</div>
+			{{/data}}
+		</script>
+
+	</main>
+
+	<footer id="footer">
+
+		<div class="d-flex justify-content-start p-3">
+			<div class="d-inline-flex mr-auto align-items-center">
+				<a href="#about-getdeals" class="d-none d-md-block footer-link">About GetDeals</a>
+				<a href="https://github.com/getdeals/website" target="_blank" class="d-none d-md-block footer-link">GitHub Repository</a>
+				<a href="https://getdeals.co.in" class="footer-link">#PoweredByGetDeals</a>
+			</div>
+			<div class="d-inline-flex ml-auto align-items-center">
+				<div class="btn-group btn-group-sm" role="group" aria-label="Social Networks">
+					<a href="https://www.facebook.com/getdealscoin" target="_blank" class="btn btn-facebook" title="Facebook"><i class="fab fa-facebook-f fa-fw"></i></a>
+					<a href="https://www.twitter.com/getdealscoin" target="_blank" class="btn btn-twitter" title="Twitter"><i class="fab fa-twitter fa-fw"></i></a>
+					<a href="https://www.linkedin.com/company/getdeals" target="_blank" class="btn btn-linkedin" title="LinkedIn"><i class="fab fa-linkedin-in fa-fw"></i></a>
+				</div>
+			</div>
+		</div>
+
+	</footer>
+
+<script type="text/javascript" src="assets/js/jquery.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="assets/js/getdeals.js"></script>
+
+<script type="text/javascript">
+	getdeals( { "GD-API-Email": "", "GD-API-Token": "" } );
+</script>
+
+</body>
+
+</html>
